@@ -2,17 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import {getCookie, deleteCookie} from '../shared/Cookie'
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Header = () => {
     const nav = useNavigate();
-    const [is_login, setIsLogin] = React.useState(false);
-
-    React.useEffect(() => {
-
-        let cookie=getCookie("user_id");
-        console.log(cookie)
-        cookie ? setIsLogin(true) : setIsLogin(false)
-    }, []);
+    const dispatch = useDispatch();
+    const is_login = useSelector((state) => state.user.is_login);
 
     if(is_login) {
         return (
@@ -21,7 +17,7 @@ const Header = () => {
                 <ButtonBox>
                     <Button style={{marginRight:"5px"}}>내 정보</Button>
                     <Button style={{marginRight:"5px"}}>알림</Button>
-                    <Button onClick={() => {deleteCookie("user_id");}}>로그아웃</Button>
+                    <Button onClick={() => {dispatch(userActions.logOut({}))}}>로그아웃</Button>
                 </ButtonBox>
             </Headers>
         );
