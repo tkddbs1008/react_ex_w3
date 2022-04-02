@@ -4,10 +4,15 @@ import Img from "../elements/Image";
 
 const Post = (props) => {
 
+        //left
+
+        //right
+
+        //bottom
     return (
         <div>
             <div>
-                <div>
+                <div style={{display: "flex"}}>
                     <Img shape="circle" src={props.src} />
                     <p>{props.user_info.user_name}</p>
                     <p style={{marginLeft: "auto"}}>{props.insert_dt}</p>
@@ -17,6 +22,9 @@ const Post = (props) => {
                 </div>
                 <div>
                     <Img shape="rectangle" src={props.src} />
+                </div>
+                <div>
+                    <p>댓글{props.comment_cnt}개</p>
                 </div>
             </div>
         </div>
