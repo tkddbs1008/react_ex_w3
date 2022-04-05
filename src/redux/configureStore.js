@@ -1,9 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import User from "./modules/user";
+import post from "./modules/post";
+import image from "./modules/image";
 
 const rootReducer = combineReducers({
-    user: User
+    user: User,
+    post: post,
+    image: image,
   });
 
 const middlewares = [thunk];

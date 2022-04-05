@@ -1,9 +1,10 @@
 import React from "react";
+import styled from "styled-components";
 import Img from "../elements/Image";
-
+import { useNavigate } from "react-router-dom";
 
 const Post = (props) => {
-
+    const nav = useNavigate();
         //left
 
         //right
@@ -14,32 +15,31 @@ const Post = (props) => {
             <div>
                 <div style={{display: "flex"}}>
                     <Img shape="circle" src={props.src} />
-                    <p>{props.user_info.user_name}</p>
+                    <p>{props.user_name}</p>
                     <p style={{marginLeft: "auto"}}>{props.insert_dt}</p>
                 </div>
                 <div>
                     <p>{props.contents}</p>
                 </div>
                 <div>
-                    <Img shape="rectangle" src={props.src} />
+                    <Img shape="rectangle" src={props.image_url} />
                 </div>
-                <div>
+                <div style={{display: "flex"}}>
                     <p>댓글{props.comment_cnt}개</p>
+                    {props.is_me && <Button onClick={() => nav(`/write/${props.id}`)}>수정</Button>}
                 </div>
             </div>
         </div>
     )
 }
 
-Post.defaultProps = {
-    user_info: {
-        user_name: "user1",
-        user_profile: "https://www.clym.io/wp-content/uploads/2020/10/website-cookie.jpeg",
-    },
-    img_url: "https://www.clym.io/wp-content/uploads/2020/10/website-cookie.jpeg",
-    contents: "맛있는 쿠키",
-    comment_cnt: 10,
-    insert_dt: "2021-04-01 10:00:00",
-};
+const Button = styled.button`
+display: flex;
+padding: 0px;
+height: 20px;
+align-self: center;
+margin-left: auto;
+margin-right: 15px;
+`;
 
 export default Post;
