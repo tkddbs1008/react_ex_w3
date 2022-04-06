@@ -40,6 +40,7 @@ height: 20px;
 align-self: center;
 margin-left: auto;
 margin-right: 15px;
+z-index: 2;
 `;
 
 export default Post;

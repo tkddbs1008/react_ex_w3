@@ -15,15 +15,14 @@ const Posts = () => {
     const paging = useSelector((state) => state.post.paging);
     const user_info = useSelector((state) => state.user.user);
 
-
-
     React.useEffect(() => {
-
+        if(post_list.length === 1){
+            dispatch(postActions.emptyList())
+        }
         if(post_list.length === 0){
                 dispatch(postActions.getPostDB());
         }
-    }, []);
-
+    }, [post_list.length]);
 
     return (
         <div>

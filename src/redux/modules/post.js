@@ -12,7 +12,11 @@ const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST"
 const DELETE_POST = "DELETE_POST"
 const LOADING = "LOADING"
+const LOAD_POST = "LOAD_POST"
+const EMPTY = "EMPTY"
 
+const empty = createAction(EMPTY, (post) => ({post}))
+const loadPost = createAction(LOAD_POST, (post) => ({post}));
 const loading = createAction(LOADING, (is_loading) => ({is_loading}));
 const setPost = createAction(SET_POST, (post_list, paging) => ({post_list, paging}));
 const addPost = createAction(ADD_POST, (post) => ({post}));
@@ -27,6 +31,16 @@ const initialState = {
     is_loading: false,
 }
 
+const emptyList = () => {
+    return async function (dispatch, getState) {
+        let postList = getState().post
+        await dispatch(empty(postList))
+        };
+    }
+
+
+
+// middleware
 const getPostDB = (start = null, size = 3) => {
     return async function (dispatch, getState) {
 
@@ -65,6 +79,22 @@ const getPostDB = (start = null, size = 3) => {
     }
 
 }
+
+const loadOneFB = (id) => {
+    return async function (dispatch) {
+        const docRef = doc(db, "post", `${id}`);
+        const docs = await getDoc(docRef);
+        let _post = docs.data()
+        let post = Object.keys(_post).reduce((a, b) => {
+
+                    return {...a, [b]:_post[b]};
+                },
+                {id: id}
+            );
+            dispatch(loadPost(post)
+            )
+        };
+    }
 
 const addPostFB = (contents) => {
     return function (dispatch, getState) {
@@ -140,7 +170,14 @@ const deletePostFB = (post_id) => {
 
 export default handleActions(
     {
+        [EMPTY]: (state, action) => produce(state, (draft) => {
+            draft.list.pop()
+        }),
+        [LOAD_POST]: (state, action) => produce(state, (draft) => {
+            draft.list.push(action.payload.post);
+        }),
         [SET_POST]: (state, action) => produce(state, (draft) => {
+
             draft.list.push(...action.payload.post_list);
             draft.paging = action.payload.paging;
             draft.is_loading = false;
@@ -149,7 +186,7 @@ export default handleActions(
             draft.list.unshift(action.payload.post);
         }),
         [LOADING]: (state, action) => produce(state, (draft) => {
-            draft.is_loading = action.payload.is_loading;
+                draft.is_loading = action.payload.is_loading;
         }),
         [EDIT_POST]: (state, action) => produce(state, (draft) => {
             let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
@@ -165,6 +202,8 @@ const actionCreators = {
     getPostDB,
     addPostFB,
     editPostFB,
+    loadOneFB,
+    emptyList,
 }
 
 export {actionCreators}

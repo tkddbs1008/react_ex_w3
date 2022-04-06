@@ -7,6 +7,7 @@ import Posts from "../pages/Posts";
 import Signup from "../pages/SignUp";
 import Header from "./Header";
 import {actionCreators as userActions} from "../redux/modules/user"
+import { actionCreators as postActions } from "../redux/modules/post";
 import { useDispatch } from "react-redux";
 import { apiKey } from "./Firebase";
 import Permit from "./Permit";

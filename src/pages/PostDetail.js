@@ -2,37 +2,41 @@ import React from "react";
 import Post from "../components/Post";
 import CommentList from "../components/CommentList";
 import CommentWrite from "../components/CommentWrite";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
+import Spinner from "../elements/Spinner";
 
 const PostDetail = (props) => {
-    const nav = useNavigate();
+    const dispatch = useDispatch();
     const param = useParams();
     const id = param.id;
     const post_list = useSelector(store => store.post.list);
     const post_idx = post_list.findIndex(p => p.id === id);
     const post = post_list[post_idx];
     const user_info = useSelector((state) => state.user.user);
-    console.log(post)
 
 
+    React.useEffect(()=> {
+        if(post){
+            return;
+        }
+            dispatch(postActions.loadOneFB(id))
+    }, [])
+
+    if(!post){
+        return(
+            <Spinner size="200"></Spinner>
+        )
+    }
 
     return (
         <div>
-            <Post {...post} is_me={post.user_id === user_info.uid}/>
-            {props.is_me && <Button onClick={() => nav(`/write/${props.id}`)}>수정</Button>}
-            <CommentWrite/>
-            <CommentList/>
+            <Post {...post} is_me={post.user_id  === user_info.uid}/>
+            <CommentWrite post_id={id}/>
+            <CommentList post_id={id}/>
         </div>
     )
 }
-
-const Button = styled.button`
-display: flex;
-padding: 0px;
-height: 20px;
-align-self: center;
-`;
 
 export default PostDetail;
