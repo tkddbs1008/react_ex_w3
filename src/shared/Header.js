@@ -13,25 +13,14 @@ const Header = () => {
     const session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
     const is_session = sessionStorage.getItem(session_key) ? true : false;
 
-    // <Permit>
-    //     <Headers>
-    //         <h1 onClick={() => nav('/')}>홈페이지</h1>
-    //         <ButtonBox>
-    //             <Button style={{marginRight:"5px"}}>내 정보</Button>
-    //             <Button style={{marginRight:"5px"}}>알림</Button>
-    //             <Button onClick={() => {dispatch(userActions.logOutFB({}))}}>로그아웃</Button>
-    //         </ButtonBox>
-    //     </Headers>
-    // </Permit>
-
 
     if(is_session && is_login){
         return (
             <Headers>
                 <h1 onClick={() => nav('/')}>홈페이지</h1>
                 <ButtonBox>
-                    <Button style={{marginRight:"5px"}}>내 정보</Button>
-                    <Button style={{marginRight:"5px"}}>알림</Button>
+                    {/* <Button style={{marginRight:"5px"}}>내 정보</Button>
+                    <Button style={{marginRight:"5px"}}>알림</Button> */}
                     <Button onClick={() => {dispatch(userActions.logOutFB({})); nav("/");}}>로그아웃</Button>
                 </ButtonBox>
             </Headers>

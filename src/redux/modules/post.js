@@ -21,7 +21,7 @@ const loading = createAction(LOADING, (is_loading) => ({is_loading}));
 const setPost = createAction(SET_POST, (post_list, paging) => ({post_list, paging}));
 const addPost = createAction(ADD_POST, (post) => ({post}));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({post_id, post}));
-const deletePost = createAction(DELETE_POST, (post) => ({post}));
+const deletePost = createAction(DELETE_POST, (post_id) => ({post_id}));
 
 
 
@@ -165,6 +165,8 @@ const deletePostFB = (post_id) => {
     return async function (dispatch, getState) {
         const docRef = doc(db, "post", post_id);
         await deleteDoc(docRef);
+
+        dispatch(deletePost(post_id))
     }
 }
 
@@ -192,7 +194,10 @@ export default handleActions(
             let idx = draft.list.findIndex((p) => p.id === action.payload.post_id);
 
             draft.list[idx] = {...draft.list[idx], ...action.payload.post}
-        })
+        }),
+        [DELETE_POST]: (state, action) => produce(state, (draft) => {
+            draft.list = draft.list.filter((l) => l.id !== action.payload.post_id);
+        }),
     }, initialState
 );
 
@@ -204,6 +209,7 @@ const actionCreators = {
     editPostFB,
     loadOneFB,
     emptyList,
+    deletePostFB,
 }
 
 export {actionCreators}

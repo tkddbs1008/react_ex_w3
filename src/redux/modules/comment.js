@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { db } from "../../shared/Firebase"
+import { collection, getDocs, doc, where, orderBy, query } from "firebase/firestore";
 import "moment";
 import moment from "moment";
 
@@ -21,8 +22,20 @@ const initialState = {
 };
 
 const getCommentFB = (post_id) => {
-    return function(dispatch, getState, {history}){
+    return async function(dispatch, getState){
+        if(!post_id){
+            return;
+        }
 
+        const commentDB = collection(db, "comment");
+        const q = query(commentDB, where("post_id", "==", post_id), orderBy("insert_dt", "desc"))
+        const comments = await getDocs(q);
+        let list = [];
+        comments.forEach((doc) => {
+            list.push({...doc.data(), id: doc.id});
+        });
+        console.log(list)
+        dispatch(setComment(post_id, list));
     }
 }
 
@@ -30,7 +43,7 @@ const getCommentFB = (post_id) => {
 export default handleActions(
   {
       [SET_COMMENT]: (state, action) => produce(state, (draft) => {
-
+        draft.list[action.payload.post_id] = action.payload.comment_list;
       }),
       [ADD_COMMENT]: (state, action) => produce(state, (draft)=> {
 

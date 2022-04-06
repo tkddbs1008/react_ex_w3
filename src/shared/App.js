@@ -63,6 +63,7 @@ position: fixed;
 bottom: 50px;
 right: 16px;
 border-radius: 25px;
+z-index: 3;
 `
 
 export default App;

@@ -33,7 +33,7 @@ const PostDetail = (props) => {
     return (
         <div>
             <Post {...post} is_me={post.user_id  === user_info.uid}/>
-            <CommentWrite post_id={id}/>
+            <CommentWrite post_id={id} is_me={post.user_id  === user_info.uid}/>
             <CommentList post_id={id}/>
         </div>
     )
