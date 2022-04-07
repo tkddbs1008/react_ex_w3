@@ -210,6 +210,7 @@ const actionCreators = {
     loadOneFB,
     emptyList,
     deletePostFB,
+    editPost,
 }
 
 export {actionCreators}

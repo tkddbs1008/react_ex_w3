@@ -15,7 +15,7 @@ const PostDetail = (props) => {
     const post_idx = post_list.findIndex(p => p.id === id);
     const post = post_list[post_idx];
     const user_info = useSelector((state) => state.user.user);
-
+    const comment_cnt = post.comment_cnt;
 
     React.useEffect(()=> {
         if(post){
@@ -32,7 +32,7 @@ const PostDetail = (props) => {
 
     return (
         <div>
-            <Post {...post} is_me={post.user_id  === user_info.uid}/>
+            <Post {...post} comment_cnt={comment_cnt} is_me={post.user_id  === user_info.uid}/>
             <CommentWrite post_id={id} is_me={post.user_id  === user_info.uid}/>
             <CommentList post_id={id}/>
         </div>

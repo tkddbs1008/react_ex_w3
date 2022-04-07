@@ -29,12 +29,12 @@ function App() {
     if(is_session){
       dispatch(userActions.loginCheckFB());
     }
-    // const docRef = doc(db, "post", "AgJDgksWCEMWXNeeLtWR");
+    // const docRef = doc(db, "comment", "x6Tn7hFpHwPWCYqHdqm6");
     // deleteDoc(docRef)
   },);
 
   return (
-        <div>
+        <div style={{width:"60%", margin: "auto"}}>
           <Header />
           <Routes>
             <Route path="/*" element={< Posts/>}/>
