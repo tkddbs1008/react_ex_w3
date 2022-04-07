@@ -66,7 +66,7 @@ const PostWrite = (props) => {
         )
     }
     return (
-        <div>
+        <div style={{width: "60%", margin: "auto"}}>
             <div>
                 <h1>{is_edit ? "게시글 수정" : "게시글 작성"}</h1>
                 <Upload/>
@@ -90,7 +90,7 @@ const PostWrite = (props) => {
 }
 
 const InputBox = styled.textarea`
-
+width: 100%
 `;
 
 export default PostWrite;
