@@ -1,5 +1,4 @@
 import React from "react";
-import styled from 'styled-components'
 import Post from "../components/Post";
 import {useSelector, useDispatch} from "react-redux"
 import { actionCreators as postActions} from "../redux/modules/post";
@@ -25,7 +24,7 @@ const Posts = () => {
     }, [post_list.length]);
 
     return (
-        <div>
+        <div style={{width: "65%", margin: "auto"}}>
         <InfinityScroll
             callNext={() => {
                 dispatch(postActions.getPostDB(paging.next));

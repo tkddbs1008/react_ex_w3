@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { db } from "../../shared/Firebase"
-import { collection, getDocs, getDoc, where, orderBy, query, addDoc, increment, updateDoc, doc } from "firebase/firestore";
+import { collection, getDocs, where, orderBy, query, addDoc, increment, updateDoc, doc } from "firebase/firestore";
 import "moment";
 import moment from "moment";
 import { actionCreators as postActions } from "./post";
@@ -14,7 +14,7 @@ const LOADING = "LOADING";
 const setComment = createAction(SET_COMMENT, (post_id, comment_list) => ({post_id, comment_list}));
 const addComment = createAction(ADD_COMMENT, (post_id, comment) => ({post_id, comment}));
 
-const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+// const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
   list: {},

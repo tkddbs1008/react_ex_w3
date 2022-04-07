@@ -27,20 +27,29 @@ const CommentWrite = (props) => {
 
     return (
       <div>
-        <div style={{display: "flex"}}>
-          <input value={comment_text} onChange={onChange} placeholder="댓글 내용을 입력해주세요 :)" />
+        <WriteBox>
+          <Write value={comment_text} onChange={onChange} placeholder="댓글 내용을 입력해주세요 :)" />
           <button onClick={write}>작성</button>
           {props.is_me && <Button onClick={deletePost}>게시글 삭제</Button>}
-        </div>
+        </WriteBox>
       </div>
     );
 }
+
+const WriteBox = styled.div`
+display: flex;
+margin-bottom: 10px;
+`;
+
+const Write = styled.input`
+width: 60%;
+padding: 5px;
+`;
 
 const Button = styled.button`
 display: flex;
 align-self: center;
 margin-left: auto;
-margin-right: 15px;
 `;
 
 

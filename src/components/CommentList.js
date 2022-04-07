@@ -32,7 +32,8 @@ const CommentItem = (props) => {
 
     const {user_profile, user_name, user_id, post_id, contents, insert_dt} = props;
     return (
-        <div>
+        <div style={{margin: "10px 0px 10px 0px"}}>
+        <Comment>
             <Head>
                 <Img shape="circle"/>
                 <p>{user_name}</p>
@@ -41,9 +42,18 @@ const CommentItem = (props) => {
             <div>
                 <p>{contents}</p>
             </div>
+        </Comment>
         </div>
+
     )
 }
+
+const Comment = styled.div`
+background: #EBF4FA;
+padding: 10px;
+border: 1px solid #D6E9F5;
+border-radius: 10px
+`;
 
 const Head = styled.div`
 display: flex;

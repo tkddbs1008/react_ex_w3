@@ -1,5 +1,5 @@
 import {createAction, handleActions} from "redux-actions"
-import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie"
+import { setCookie, deleteCookie } from "../../shared/Cookie"
 import {produce} from "immer"
 import { browserSessionPersistence, setPersistence, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../shared/Firebase"
